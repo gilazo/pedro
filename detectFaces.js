@@ -8,8 +8,8 @@ var events = require('events');
 var rekognized = new events.EventEmitter();
 module.exports.speakEmitter = rekognized;
 
-var dontKnowPersonPhrases = fs.readFileSync('./common/dontknowperson.txt').toString().split("\n");
-var knowPersonPharases = fs.readFileSync('./common/knowperson.txt').toString().split("\n");
+var dontKnowPersonPhrases = fs.readFileSync('./common/dontKnowPersonPhrases.txt').toString().split("\n");
+var knowPersonPharases = fs.readFileSync('./common/knowPersonPhrases.txt').toString().split("\n");
 
 require('./awsauth.js');
 const rekognition = new AWS.Rekognition(
