@@ -6,10 +6,10 @@ const bucket = "rekognition-pedro";
 const imageLocation = "./images/image.jpg";
 var events = require('events');
 var rekognized = new events.EventEmitter();
-module.exports.speakEmitter = rekognized;
+module.exports = rekognized;
 
 var dontKnowPersonPhrases = fs.readFileSync('./common/dontKnowPersonPhrases.txt').toString().split("\n");
-var knowPersonPharases = fs.readFileSync('./common/knowPersonPhrases.txt').toString().split("\n");
+var knowPersonPhrases = fs.readFileSync('./common/knowPersonPhrases.txt').toString().split("\n");
 
 require('./awsauth.js');
 const rekognition = new AWS.Rekognition(
@@ -42,12 +42,12 @@ function doesPedroKnowsthePerson(data) {
         var name = data.FaceMatches[0].Face.ExternalImageId;
         name = name.replace(/([A-Z])/g, ' $1');
 
-        var phrase = pickAPhrase(knowPersonPharases) + ' ' + name;
-        rekognized.emit('rekognized', phrase);
+        var phrase = pickAPhrase(knowPersonPhrases) + ' ' + name;
     } else {
         var phrase = pickAPhrase(dontKnowPersonPhrases);
-        rekognized.emit('rekognized', phrase);
     }
+
+    rekognized.emit('rekognized', phrase);
 }
 
 function pickAPhrase (phraseList) {
