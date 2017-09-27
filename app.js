@@ -13,7 +13,7 @@ app.use(bodyParser.text());
 
 app.post('/speak', function (req, res) {
 	console.log('received request: ' + req.body);
-	polly.speak(req.body);
+	polly.speak(`${req.body}. Brought to you by the pants shitter himself, Jason Boyce!`);
 	res.send(req.body);
 });
 
